@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "750033093995",
+    "firebase_url": "https://poker-guy.firebaseio.com",
+    "project_id": "poker-guy",
+    "storage_bucket": "poker-guy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750033093995:android:94c5e70520deb4a230f82e",
+        "android_client_info": {
+          "package_name": "com.swmatters.pokerguy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750033093995-rkqkmvqunnbd8tcqlhljrj3aod9lbvge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjF22jDG731npmPDykocM400VOtG2vIGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750033093995-rkqkmvqunnbd8tcqlhljrj3aod9lbvge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
