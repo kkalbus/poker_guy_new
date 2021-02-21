@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:poker_guy/models/app_user.dart';
 import 'package:poker_guy/models/poker_table.dart';
 import 'package:poker_guy/services/cloud_functions.dart';
+import 'package:poker_guy/shared/constants.dart';
 import 'package:poker_guy/shared/table_state.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class DealerWidget extends StatefulWidget {
   @override
@@ -16,7 +17,8 @@ class _DealerWidgetState extends State<DealerWidget> {
     PokerTable table = Provider.of<PokerTable>(context);
     bool doneDeal = table.tableState == TableState.doneDeal;
     List<Widget> _widgets = (table.tableState != TableState.shuffle) &&
-        (table.tableState != TableState.drawHighCard)
+        (table.tableState != TableState.drawHighCard) &&
+        (!table.shuffling)
         ? <Widget>[
             // call a function to get the Deal button if the board
             // is not yet full. If we are done dealing this round
@@ -24,10 +26,10 @@ class _DealerWidgetState extends State<DealerWidget> {
             //
             RaisedButton(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(3.0.h),
                     side: BorderSide(color: Colors.green[900] ?? new Color(1))),
                 color: doneDeal ? Colors.grey[300] : Colors.green[300],
-                child: Text("Deal"),
+                child: Text("Deal", style: pgButtonTextDecoration),
                 onPressed: doneDeal
                     ? null
                     : () {
@@ -40,10 +42,10 @@ class _DealerWidgetState extends State<DealerWidget> {
 
             RaisedButton(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(3.0.h),
                     side: BorderSide(color: Colors.green[900] ?? new Color(1))),
                 color: Colors.green[300],
-                child: Text("End Hand"),
+                child: Text("End Hand", style: pgButtonTextDecoration),
                 onPressed: () {
                   //DatabaseService().loadWordsToFirestore();
                   cf_endHand(table.tableId);
@@ -52,19 +54,19 @@ class _DealerWidgetState extends State<DealerWidget> {
         : <Widget>[
             RaisedButton(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(3.0.h),
                     side: BorderSide(color: Colors.green[900] ?? new Color(1))),
                 color: Colors.green[300],
-                child: Text("Shuffle"),
+                child: Text("Shuffle", style: pgButtonTextDecoration),
                 onPressed: () {
                   cf_shuffleDeck(table.tableId);
                 }),
             RaisedButton(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(3.0.h),
                     side: BorderSide(color: Colors.green[900] ?? new Color(1))),
                 color: Colors.green[300],
-                child: Text("Close Table"),
+                child: Text("Close Table", style: pgButtonTextDecoration),
                 onPressed: () {
                   cf_closeTable(table.tableId);
                 }),

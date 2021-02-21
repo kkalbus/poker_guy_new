@@ -6,6 +6,7 @@ import 'package:poker_guy/models/app_user.dart';
 import 'package:poker_guy/widgets/header_starting_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:poker_guy/services/cloud_functions.dart';
+import 'package:sizer/sizer.dart';
 
 class JoinTableWidget extends StatefulWidget {
   @override
@@ -14,11 +15,8 @@ class JoinTableWidget extends StatefulWidget {
 
 class _JoinTableWidgetState extends State<JoinTableWidget> {
   final _formKey = GlobalKey<FormState>();
-  String nickname = "";
   String passphrase = "";
-  var _nicknameController;
   var _passphraseController;
-  String appUserNickname = "";
   String errMsg = "";
 
   @override
@@ -29,7 +27,6 @@ class _JoinTableWidgetState extends State<JoinTableWidget> {
       appUser = new AppUser(uid: appUser.uid);
     }
 
-    nickname = appUser.nickname;
     bool tableNotFound = appUser.tableId == "Nope";
 
     if (tableNotFound) {
@@ -37,8 +34,6 @@ class _JoinTableWidgetState extends State<JoinTableWidget> {
     } else {
       errMsg = "";
     }
-
-    _nicknameController = TextEditingController(text: nickname);
     _passphraseController = TextEditingController();
 
     return Column(
@@ -58,7 +53,7 @@ class _JoinTableWidgetState extends State<JoinTableWidget> {
           ],
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 50.0),
+          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0.w),
           child: Form(
             key: _formKey,
             child: Container(
@@ -67,23 +62,18 @@ class _JoinTableWidgetState extends State<JoinTableWidget> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    SizedBox(height: 10.0),
-                    TextFormField(
-                      controller: _nicknameController,
-                      decoration: textInputDecoration.copyWith(
-                          hintText: 'Your nickname sir?'),
-                      validator: (val) {
-                        if (val == null) {
-                          return null;
-                        }
-                        return (val.isEmpty
-                            ? 'Please enter your nickname'
-                            : null);
-                      },
-                    ),
-                    SizedBox(height: 20.0),
+                    Text("Enter table passphrase:",
+                        style: TextStyle(
+                          fontSize: 16.0.sp,
+                          color: Colors.yellow,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    SizedBox(height: 3.0.h,),
                     TextFormField(
                       controller: _passphraseController,
+                      style: TextStyle(
+                        fontSize: 12.0.sp,
+                      ),
                       decoration: textInputDecoration.copyWith(
                           hintText: 'Table passphrase?'),
                       validator: (val) {
@@ -101,7 +91,7 @@ class _JoinTableWidgetState extends State<JoinTableWidget> {
                               child: Text(
                                 errMsg,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 12.0.sp,
                                   color: Colors.red,
                                   backgroundColor: Colors.white,
                                 ),
@@ -111,29 +101,20 @@ class _JoinTableWidgetState extends State<JoinTableWidget> {
                         : Container(),
                     Padding(
                       padding:
-                          const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 30.0),
+                          EdgeInsets.fromLTRB(4.0.w, 5.0.h, 4.0.h, 4.0.w),
                       child: RaisedButton(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                            borderRadius: BorderRadius.circular(3.0.h),
                             side: BorderSide(
                                 color: Colors.green[900] ?? new Color(1))),
                         color: Colors.green[300],
                         child: Text(
                           "Join",
-                          style: pgButtonTextDecoration,
+                            style: TextStyle(fontSize: 12.0.sp)
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 15.0),
+                        padding: EdgeInsets.symmetric(vertical: 1.0.h),
                         onPressed: () async {
-                          nickname = _nicknameController.text;
-                          passphrase = _passphraseController.text;
-
-                          // Update the users nickname if it has changed
-                          if (appUser.nickname != nickname) {
-                            appUser.nickname = nickname;
-                            DatabaseService(uid: appUser.uid)
-                                .updateAppUser(appUser);
-                          }
-
+                           passphrase = _passphraseController.text;
                           cf_joinTable(appUser.uid, passphrase, appUser.nickname);
                         },
                       ),

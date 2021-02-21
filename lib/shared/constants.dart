@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 const textInputDecoration = InputDecoration(
   fillColor: Colors.white,
@@ -12,21 +13,13 @@ const textInputDecoration = InputDecoration(
   ),
 );
 
-const pgButtonTextDecoration = TextStyle(
-  fontSize: 20,
+var pgButtonTextDecoration = TextStyle(
+  fontSize: 12.0.sp,
   color: Colors.black,
-  fontWeight: FontWeight.bold,
 );
 
-const buttonTextDecoration = TextStyle(
-  fontSize: 18.0,
-  color: Color(0xFF2a662d),
-  fontWeight: FontWeight.bold,
-);
-
-const textDecoration = TextStyle(
-  letterSpacing: .5,
-  fontSize: 18.0,
+var textDecoration = TextStyle(
+  fontSize: 18.0.sp,
   color: Colors.black,
   // fontWeight: FontWeight.bold,
 );

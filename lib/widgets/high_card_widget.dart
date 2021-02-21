@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:poker_guy/models/app_user.dart';
 import 'package:poker_guy/models/hole_cards.dart';
 import 'package:poker_guy/models/poker_table.dart';
 import 'package:poker_guy/screens/at_table_widget.dart';
 import 'package:poker_guy/services/cloud_functions.dart';
 import 'package:poker_guy/main.dart';
+import 'package:poker_guy/shared/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class HighCardWidget extends StatefulWidget {
   @override
@@ -26,25 +27,26 @@ class _HighCardWidgetState extends State<HighCardWidget> {
         holeCards.cardNames[0] == "") {
       return Column(
         children: [
+          SizedBox(
+            height: 3.0.h,
+          ),
           Text("Draw for first deal:",
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 18.0.sp,
                 color: Colors.yellow,
                 fontWeight: FontWeight.bold,
               )),
           Padding(
-            padding: const EdgeInsets.all(22.0),
+            padding: EdgeInsets.all(1.0.h),
             child: RaisedButton(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(22.0),
+                  borderRadius: BorderRadius.circular(3.0.h),
                   side: BorderSide(color: Colors.green[900] ?? new Color(1))),
               color: Colors.green[300],
               child: Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: EdgeInsets.all(2.0.h),
                 child: Text("Draw Card",
-                    style: TextStyle(
-                      fontSize: 20,
-                    )),
+                     style: pgButtonTextDecoration),
               ),
               onPressed: () {
                 cf_drawHighCard(
@@ -70,7 +72,7 @@ class _HighCardWidgetState extends State<HighCardWidget> {
                 child: Text("High card gets dealer button first. If its a tie, toss a coin. \n\nIf you " +
                             "are the designated dealer, press 'Shuffle' to start first hand.",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 14.0.sp,
                       color: Colors.yellow,
                       fontWeight: FontWeight.bold,
                     )),

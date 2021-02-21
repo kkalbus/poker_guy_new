@@ -5,17 +5,17 @@ import 'package:poker_guy/models/hole_cards.dart';
 import 'package:poker_guy/models/table_player_names.dart';
 
 class DatabaseService {
-
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final CollectionReference appUserCollection = FirebaseFirestore.instance.collection("app_users");
-  final CollectionReference tableCollection = FirebaseFirestore.instance.collection("tables");
+  final CollectionReference appUserCollection =
+      FirebaseFirestore.instance.collection("app_users");
+  final CollectionReference tableCollection =
+      FirebaseFirestore.instance.collection("tables");
 
   final String uid;
   final String tableId;
-  DatabaseService({this.uid = "", this.tableId = "" });
+  DatabaseService({this.uid = "", this.tableId = ""});
 
   Stream<PokerTable> get table {
-
     return tableCollection
         .doc(tableId)
         .snapshots()
@@ -23,15 +23,14 @@ class DatabaseService {
   }
 
   Stream<TablePlayerNames> get tablePlayers {
-
     return tableCollection
-        .doc(tableId).collection("tablePlayers")
+        .doc(tableId)
+        .collection("tablePlayers")
         .snapshots()
         .map((snap) => TablePlayerNames.fromSnapshots(snap));
   }
 
   Stream<HoleCards> get holeCards {
-
     if (this.uid == null) {
       return null;
     }
@@ -42,8 +41,7 @@ class DatabaseService {
   }
 
   Stream<TablePlayerNames> get tablePlayerNames {
-
-    if (this.tableId== null) {
+    if (this.tableId == null) {
       return null;
     }
     return tableCollection
@@ -53,8 +51,18 @@ class DatabaseService {
         .map((snap) => TablePlayerNames.fromSnapshots(snap));
   }
 
-  Stream<AppUser> get appUser {
+  void checkAppUserExists(String uid) {
+    // given firebase user id, check if appUser exists.
+    // if not create one so PokerGuy body can build
 
+    appUserCollection.doc(uid).get().then((DocumentSnapshot documentSnapshot) {
+      if (!documentSnapshot.exists) {
+        updateAppUser(new AppUser(uid: uid));
+      }
+    });
+  }
+
+  Stream<AppUser> get appUser {
     if (this.uid == null) {
       return null;
     }
@@ -69,33 +77,46 @@ class DatabaseService {
     if (puid == null) {
       return null;
     }
-    appUserCollection.doc(puid).update({"holeCard1": ""});
-    appUserCollection.doc(puid).update({"holeCard2": ""});
+    appUserCollection
+        .doc(puid)
+        .update({"holeCard1": "", "holeCard2": "", "folded": true});
+  }
 
-    updateAppUser(appUser);
+  void leaveTable(AppUser appUser) {
+    String puid = appUser.uid;
+    if (puid == null) {
+      return null;
+    }
+    appUserCollection.doc(puid).update({
+      'tableId': "",
+      'holeCard1': "",
+      'holeCard2': "",
+      'folded': false,
+      'isDealer': false,
+      'playerState': 0
+    });
   }
 
   void shuffleOff() {
-
-    tableCollection.doc(tableId).update({"tableState": 3,
-                                          "shuffling": false});
+    tableCollection.doc(tableId).update({"tableState": 3, "shuffling": false});
   }
 
-
   Future<void> updateAppUser(AppUser appUser) async {
-
     if (uid == null) {
       return null;
     }
 
-    return await appUserCollection.doc(uid).set(appUser.toMap())
+    return await appUserCollection
+        .doc(uid)
+        .set(appUser.toMap())
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
 
   void loadWordsToFirestore() {
     // Just a throw away function to load words into firestore
-    final CollectionReference phraseWordsCollection = FirebaseFirestore.instance.collection("words");
+    final CollectionReference phraseWordsCollection =
+        FirebaseFirestore.instance.collection("words");
     Map<String, dynamic> nouns = {
       '1': 'ball',
       '2': 'bat',
@@ -1025,10 +1046,8 @@ class DatabaseService {
       // '910': 'fresh',
       // '911': 'hushed',
       // '912': 'rural',
-
     };
 
     phraseWordsCollection.doc("nouns").set(nouns);
   }
-
 }

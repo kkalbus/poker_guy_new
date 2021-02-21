@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:poker_guy/models/app_user.dart';
 import 'package:poker_guy/models/hole_cards.dart';
-import 'package:poker_guy/widgets/header_playing_widget.dart';
 import 'package:poker_guy/screens/poker_guy_body.dart';
 import 'package:poker_guy/shared/loading.dart';
 import 'package:poker_guy/main.dart';
@@ -18,7 +17,6 @@ class BigWidget extends StatefulWidget {
 class _BigWidgetState extends State<BigWidget> {
   @override
   Widget build(BuildContext context) {
-
     MyApp.screenSize = MediaQuery.of(context).size;
     MyApp.screenWidth = MyApp.screenSize.width;
     MyApp.screenHeight = MyApp.screenSize.height;
@@ -30,11 +28,16 @@ class _BigWidgetState extends State<BigWidget> {
     if (user == null) {
       return Loading();
     }
-  String uid = user.uid;
+    String uid = user.uid;
+
+    // We have a valid Firebase user, now make sure we
+    // have an actual AppUser
+
+    DatabaseService(uid: uid).checkAppUserExists(uid);
+
     return MultiProvider(
       providers: [
-        StreamProvider<AppUser>.value(
-            value: DatabaseService(uid: uid).appUser),
+        StreamProvider<AppUser>.value(value: DatabaseService(uid: uid).appUser),
         StreamProvider<HoleCards>.value(
             value: DatabaseService(uid: user.uid).holeCards),
       ],

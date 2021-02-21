@@ -29,7 +29,12 @@ class PokerTable {
   }
 
   factory PokerTable.fromMap(Map<String, dynamic> data()) {
-    Map<String, dynamic> data1 = data() ?? {};
+
+    if (data() == null) {
+      return null;
+    }
+
+    Map<String, dynamic> data1 = data();
     PokerTable pt =  PokerTable(
         data1['tableId'] ?? ''
     );

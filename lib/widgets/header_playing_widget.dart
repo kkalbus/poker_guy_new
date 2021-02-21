@@ -5,7 +5,7 @@ import 'package:poker_guy/shared/table_state.dart';
 import 'package:poker_guy/screens/at_table_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:poker_guy/services/database.dart';
-
+import 'package:sizer/sizer.dart';
 
 class HeaderPlayingWidget extends StatefulWidget {
   @override
@@ -65,36 +65,35 @@ class _HeaderPlayingWidgetState extends State<HeaderPlayingWidget> {
         Divider(
           color: Colors.green[900],
           height: 2.0,
-          thickness: 3.0,
+          thickness: 2.0,
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(1.0.w),
           child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(nickname,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.yellow,
-                      fontWeight: FontWeight.bold,
-                    )),
                 Text("Table: " + phrase,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 10.0.sp,
                       color: Colors.yellow,
                       fontWeight: FontWeight.bold,
                     )),
                 Text(_HeaderPlayingWidgetState.status,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 10.0.sp,
                       color: Colors.yellow,
                       fontWeight: FontWeight.bold,
                     )),
                 Text(handNum,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 10.0.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.yellow,
+                    )),
+                Text(nickname,
+                    style: TextStyle(
+                      fontSize: 10.0.sp,
+                      color: Colors.yellow,
+                      fontWeight: FontWeight.bold,
                     )),
               ]),
         ),

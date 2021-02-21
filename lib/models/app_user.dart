@@ -34,6 +34,11 @@ class AppUser {
 
   factory AppUser.fromMap(Map<String, dynamic> data1()) {
     Map<String, dynamic> data = data1() ?? {};
+
+    // Make sure there is a playerState field
+    if (data['playerState'] == null) {
+      data['playerState'] = 0;
+    }
     return AppUser(
         uid: data['uid'] ?? '',
         nickname: data['nickname'] ?? '',

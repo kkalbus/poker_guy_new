@@ -6,39 +6,37 @@ import 'package:poker_guy/services/database.dart';
 import 'package:poker_guy/shared/constants.dart';
 import 'package:poker_guy/shared/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class PlayerList extends StatefulWidget {
   final List<dynamic> playerNames = [];
-  // const PlayerList({Key key, this.playerNames}) : super(key: key);
 
   @override
   _PlayerListState createState() => _PlayerListState();
 }
 
 class _PlayerListState extends State<PlayerList> {
-  //List<String> players = ["Player 33333", "Player 3", "Player 5"];
+
   @override
   Widget build(BuildContext context) {
     TablePlayerNames tablePlayers = Provider.of<TablePlayerNames>(context);
     if (tablePlayers == null) {
       return Container();
     }
-  //  List<dynamic> playerNames = table.tablePlayers;
-  //   if (tablePlayerNames == null) {
-  //     tablePlayerNames = new List<String>();;
-  //     return Container();
-  //   }
 
     return Expanded(
       child: Column(children: <Widget>[
         SizedBox(
-          height: 20.0,
+          height: 1.0.h,
         ),
         AutoSizeText(
           "Players:",
           style: textDecoration.copyWith(
-              color: Colors.yellow,
-              fontWeight: FontWeight.bold, fontSize: 20.0),
+              color: Colors.green[100],
+              fontWeight: FontWeight.bold, fontSize: 20.0.sp),
+        ),
+        SizedBox(
+          height: 1.0.h,
         ),
         ListView.builder(
           shrinkWrap: true,
@@ -46,14 +44,14 @@ class _PlayerListState extends State<PlayerList> {
           //shrinkWrap: true,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: EdgeInsets.all(0.5.h),
               child: Center(
                 child: AutoSizeText(
 
                   tablePlayers.playerNames[index],
                   style: textDecoration.copyWith(
                       color: Colors.yellow,
-                      fontWeight: FontWeight.bold, fontSize: 24.0),
+                      fontWeight: FontWeight.bold, fontSize: 16.0.sp),
                 ),
               ),
             );
