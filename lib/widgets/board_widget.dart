@@ -47,21 +47,21 @@ class _BoardWidgetState extends State<BoardWidget> {
     for (String card in board) {
       childrens.add(Padding(
         padding: EdgeInsets.symmetric(horizontal: 1.0.w),
-        child: SizedBox(
-          width:16.8.w,
-          child: Image.asset("assets/cards/red_back_hole.png",
-          width: 30.0.w,
-          scale: 2.0),
-          // child: SvgPicture.asset(
-          //
-          //   "assets/cards/" + card + ".svg",
-          //   height: MyApp.screenHeight *.15,
-          //   width:28.8.w,
-          //   fit:BoxFit.contain,
-          //   allowDrawingOutsideViewBox: true,
-          // ),
+        // child: SizedBox(
+        //   width:16.8.w,
+        //   child: Image.asset("assets/cards/red_back_hole.png",
+        //   width: 30.0.w,
+        //   scale: 2.0),
+          child: SvgPicture.asset(
+
+            "assets/cards/" + card + ".svg",
+            height: MyApp.screenHeight *.15,
+            width:28.8.w,
+            fit:BoxFit.contain,
+            allowDrawingOutsideViewBox: true,
+          ),
        ),
-      ));
+      );
     }
 
     return Container(

@@ -5,7 +5,7 @@ import 'package:poker_guy/shared/table_state.dart';
 import 'package:poker_guy/services/database.dart';
 import 'package:poker_guy/screens/at_table_widget.dart';
 
-bool useFunctionEmulator = false;
+bool useFunctionEmulator = true;
 FirebaseFunctions functions = FirebaseFunctions.instance;
 final origin =
     Platform.isAndroid ? 'http://10.0.2.2:5001' : 'http://localhost:5001';
